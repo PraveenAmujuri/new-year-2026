@@ -90,8 +90,8 @@ export default function App() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      // const target = new Date("January 1, 2026 00:00:00").getTime();
-      const target = new Date("September 15, 2025 19:45:00").getTime();
+       const target = new Date("January 1, 2026 00:00:00").getTime();
+      //const target = new Date("September 15, 2025 19:45:00").getTime();
 
       const diff = target - Date.now();
 
