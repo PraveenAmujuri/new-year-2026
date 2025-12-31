@@ -1,44 +1,74 @@
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import Hamster from "../assets/hamster.jpg"; // your meme
+import Arthur from "../assets/arthur.png";   // your RDR image
 
 export default function Troll() {
-  const navigate = useNavigate();
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    // Disable auto scroll bounce feeling
+    document.body.style.overflow = "auto";
+
+    const onScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", onScroll);
+
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center text-center px-6">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6 }}
-        className="max-w-xl"
-      >
-        <h1 className="text-5xl md:text-6xl font-black mb-6">
-          🚫 ACCESS DENIED
+    <div className="min-h-[200vh] bg-black text-white flex flex-col items-center">
+
+      {/* TOP MESSAGE */}
+      <div className="h-screen flex flex-col justify-center items-center text-center px-6">
+        <h1 className="text-3xl md:text-5xl font-black mb-4">
+          🚫 No Future Machine Found
         </h1>
-
-        <p className="text-white/70 text-lg mb-4">
-          The future is <span className="font-bold">not unlocked yet</span>.
+        <p className="text-white/60 tracking-wide">
+          Scroll if you dare.
         </p>
+      </div>
 
-        <p className="text-white/50 text-sm mb-10">
-          Time-based mission. Please return after midnight.
-        </p>
-
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => navigate("/")}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black font-bold rounded-xl"
+      {/* HAMSTER MEME */}
+      {scrollY > 120 && (
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-md text-center mb-32"
         >
-          <ArrowLeft size={18} />
-          Go Back
-        </motion.button>
+          <img
+            src={Hamster}
+            alt="Let him cook"
+            className="rounded-xl mb-4"
+          />
+          <p className="text-lg font-semibold">
+            “Wait bro… let him cook.”
+          </p>
+        </motion.div>
+      )}
 
-        <p className="mt-10 text-xs tracking-widest uppercase text-white/40">
-          — Praveen
-        </p>
-      </motion.div>
+      {/* ARTHUR MORGAN */}
+      {scrollY > 420 && (
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-xl text-center mb-40"
+        >
+          <img
+            src={Arthur}
+            alt="Arthur Morgan"
+            className="rounded-xl mb-6"
+          />
+          <p className="text-2xl font-black">
+            There is no time machine, buddy.
+          </p>
+          <p className="mt-2 text-sm tracking-widest opacity-60">
+            — Arthur Morgan
+          </p>
+        </motion.div>
+      )}
     </div>
   );
 }
