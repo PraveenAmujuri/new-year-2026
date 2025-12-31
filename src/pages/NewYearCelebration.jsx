@@ -8,6 +8,7 @@ import {
 import { Star, ChevronRight } from "lucide-react";
 // import { VideoText } from "./components/VideoText";
 import { VideoText } from "@/components/ui/video-text";
+import { useNavigate } from "react-router-dom";
 
 
 

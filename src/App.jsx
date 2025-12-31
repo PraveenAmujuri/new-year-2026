@@ -8,6 +8,8 @@ import { Star, ChevronRight } from "lucide-react";
 import PraveenLogo from "./assets/praveen-logo.png";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Troll from "./pages/Troll";
+import Troll2 from "./pages/Troll2";
+
 
 /* -------------------- HYPER TEXT -------------------- */
 
@@ -190,17 +192,22 @@ export default function App() {
               )}
 
               {/* CTA */}
-              <motion.button
-                whileHover={{ scale: 1.06 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  if (!hasArrived) navigate("/future");
-                }}
-                className="px-12 py-6 bg-white text-black font-black rounded-2xl"
-              >
-                {hasArrived ? "START THE YEAR" : "ENTER THE FUTURE"}
-                <ChevronRight className="inline ml-2" />
-              </motion.button>
+<motion.button
+  whileHover={{ scale: 1.06 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={() => {
+    if (hasArrived) {
+      navigate("/start-the-year"); // ✅ NEW YEAR STARTED
+    } else {
+      navigate("/future"); // ⏳ STILL COUNTDOWN
+    }
+  }}
+  className="px-12 py-6 bg-white text-black font-black rounded-2xl"
+>
+  {hasArrived ? "START THE YEAR" : "ENTER THE FUTURE"}
+  <ChevronRight className="inline ml-2" />
+</motion.button>
+
 
               {/* WISH */}
               <div className="mt-10 text-sm opacity-70">
@@ -230,6 +237,7 @@ export default function App() {
 
       {/* TROLL PAGE */}
       <Route path="/future" element={<Troll />} />
+      <Route path="/start-the-year" element={<Troll2 />} />
     </Routes>
   );
 }
