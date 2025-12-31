@@ -1,0 +1,12 @@
+@import "tw-animate-css";
+
+/* Tailwind layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Plugins */
+@plugin "tailwindcss-animate";
+
+/* Custom variants */
+@custom-variant dark (&:is(.dark *));
