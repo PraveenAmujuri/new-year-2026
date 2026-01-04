@@ -6,10 +6,14 @@ import {
 } from "framer-motion";
 import { Star, ChevronRight } from "lucide-react";
 import PraveenLogo from "./assets/praveen-logo.png";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import Troll from "./pages/Troll";
 import Troll2 from "./pages/Troll2";
-
 
 /* -------------------- HYPER TEXT -------------------- */
 
@@ -87,14 +91,23 @@ const ShimmerText = ({ children }) => (
 export default function App() {
   const [timeLeft, setTimeLeft] = useState({ d: 0, h: 0, m: 0, s: 0 });
   const [hasArrived, setHasArrived] = useState(false);
+
   const { x, y, size } = useMouseGlow(650);
   const navigate = useNavigate();
+  const location = useLocation();
 
+  /* 🔑 COUNTDOWN LOGIC + PAST MODE */
   useEffect(() => {
-    const timer = setInterval(() => {
-       const target = new Date("January 1, 2026 00:00:00").getTime();
-      //const target = new Date("September 15, 2025 19:45:00").getTime();
+    const params = new URLSearchParams(location.search);
+    const forcePast = params.get("mode") === "past";
 
+    if (forcePast) {
+      setHasArrived(false);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      const target = new Date("January 1, 2026 00:00:00").getTime();
       const diff = target - Date.now();
 
       if (diff <= 0) {
@@ -112,11 +125,11 @@ export default function App() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [location.search]);
 
   return (
     <Routes>
-      {/* MAIN PAGE */}
+      {/* ================= MAIN PAGE ================= */}
       <Route
         path="/"
         element={
@@ -132,7 +145,7 @@ export default function App() {
               <img
                 src={PraveenLogo}
                 alt="Praveen AI"
-                className="w-32 md:w-40 lg:w-44 object-contain opacity-90 hover:opacity-100 hover:drop-shadow-[0_0_30px_rgba(255,255,255,0.35)] transition-all"
+                className="w-32 opacity-90 hover:opacity-100 transition"
               />
             </motion.div>
 
@@ -147,10 +160,6 @@ export default function App() {
                 `,
               }}
             />
-
-            {/* BACKGROUND */}
-            <motion.div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-white/10 blur-[160px] rounded-full" />
-            <motion.div className="absolute -bottom-[20%] -right-[10%] w-[60%] h-[60%] bg-white/10 blur-[160px] rounded-full" />
 
             {/* CONTENT */}
             <div className="relative z-10 w-full max-w-4xl px-6 text-center">
@@ -192,22 +201,17 @@ export default function App() {
               )}
 
               {/* CTA */}
-<motion.button
-  whileHover={{ scale: 1.06 }}
-  whileTap={{ scale: 0.95 }}
-  onClick={() => {
-    if (hasArrived) {
-      navigate("/start-the-year"); // ✅ NEW YEAR STARTED
-    } else {
-      navigate("/future"); // ⏳ STILL COUNTDOWN
-    }
-  }}
-  className="px-12 py-6 bg-white text-black font-black rounded-2xl"
->
-  {hasArrived ? "START THE YEAR" : "ENTER THE FUTURE"}
-  <ChevronRight className="inline ml-2" />
-</motion.button>
-
+              <motion.button
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() =>
+                  navigate(hasArrived ? "/start-the-year" : "/future")
+                }
+                className="px-12 py-6 bg-white text-black font-black rounded-2xl"
+              >
+                {hasArrived ? "START THE YEAR" : "ENTER THE FUTURE"}
+                <ChevronRight className="inline ml-2" />
+              </motion.button>
 
               {/* WISH */}
               <div className="mt-10 text-sm opacity-70">
@@ -220,22 +224,28 @@ export default function App() {
               </div>
             </div>
 
-            {/* FOOTER */}
-            <div className="absolute bottom-10 left-10 hidden lg:flex gap-4 text-xs tracking-widest opacity-60">
+            {/* FOOTER LEFT */}
+            <div className="absolute bottom-10 left-10 hidden lg:flex text-xs opacity-60">
               <ShimmerText>Limited Edition 2026</ShimmerText>
             </div>
 
-            <style>{`
-              @keyframes shimmer {
-                0% { background-position: 0% 50%; }
-                100% { background-position: 200% 50%; }
-              }
-            `}</style>
+            {/* FOOTER RIGHT */}
+            {hasArrived && (
+              <div className="absolute bottom-10 right-10 hidden lg:block text-xs text-white/50">
+                You missed the countdown 😅{" "}
+                <span
+                  onClick={() => navigate("/?mode=past")}
+                  className="underline cursor-pointer hover:text-white"
+                >
+                  See the past
+                </span>
+              </div>
+            )}
           </div>
         }
       />
 
-      {/* TROLL PAGE */}
+      {/* OTHER ROUTES */}
       <Route path="/future" element={<Troll />} />
       <Route path="/start-the-year" element={<Troll2 />} />
     </Routes>

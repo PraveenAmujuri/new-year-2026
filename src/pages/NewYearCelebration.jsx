@@ -6,12 +6,7 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { Star, ChevronRight } from "lucide-react";
-// import { VideoText } from "./components/VideoText";
 import { VideoText } from "@/components/ui/video-text";
-import { useNavigate } from "react-router-dom";
-
-
-
 
 /* -------------------- HYPER TEXT (WELCOME TO) -------------------- */
 
@@ -25,7 +20,6 @@ function HyperText({ children, className = "", duration = 800, delay = 0 }) {
   useEffect(() => {
     const t = setTimeout(start, delay);
     return () => clearTimeout(t);
-    // eslint-disable-next-line
   }, []);
 
   const start = () => {
@@ -39,11 +33,7 @@ function HyperText({ children, className = "", duration = 800, delay = 0 }) {
 
       setText(
         children.split("").map((c, i) =>
-          c === " "
-            ? " "
-            : i <= reveal
-            ? c
-            : CHARSET[rand(CHARSET.length)]
+          c === " " ? " " : i <= reveal ? c : CHARSET[rand(CHARSET.length)]
         )
       );
 
@@ -84,11 +74,7 @@ function useMouseGlow(size = 600) {
 /* -------------------- SHIMMER TEXT -------------------- */
 
 const ShimmerText = ({ children }) => (
-  <span
-    className="bg-gradient-to-r from-white/40 via-white to-white/40
-    bg-[length:200%_100%] bg-clip-text text-transparent
-    animate-[shimmer_3s_linear_infinite]"
-  >
+  <span className="bg-gradient-to-r from-white/40 via-white to-white/40 bg-[length:200%_100%] bg-clip-text text-transparent animate-[shimmer_3s_linear_infinite]">
     {children}
   </span>
 );
@@ -124,7 +110,6 @@ export default function NewYearCelebration() {
 
   return (
     <div className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center text-white">
-
       {/* MOUSE GLOW */}
       <motion.div
         className="pointer-events-none fixed inset-0 z-[1]"
@@ -160,7 +145,7 @@ export default function NewYearCelebration() {
             {[...Array(40)].map((_, i) => (
               <motion.span
                 key={i}
-                initial={{ y: "-10%", x: `${Math.random() * 100}%`, opacity: 1 }}
+                initial={{ y: "-10%", x: `${Math.random() * 100}%` }}
                 animate={{ y: "110%", rotate: 360, opacity: 0 }}
                 transition={{ duration: 4 + Math.random() * 2 }}
                 className="absolute text-white"
@@ -174,7 +159,6 @@ export default function NewYearCelebration() {
 
       {/* CONTENT */}
       <div className="relative z-10 w-full max-w-4xl px-6 text-center">
-
         {/* BADGE */}
         <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8">
           <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
@@ -202,17 +186,11 @@ export default function NewYearCelebration() {
           </motion.div>
         )}
 
-<div className="relative h-[220px] md:h-[320px] w-full mb-12 overflow-hidden">
-  <VideoText
-    src="https://cdn.magicui.design/ocean-small.webm"
-    fontSize={22}
-    fontWeight={900}
-  >
-    2026
-  </VideoText>
-</div>
-
-
+        <div className="relative h-[220px] md:h-[320px] w-full mb-12 overflow-hidden">
+          <VideoText src="https://cdn.magicui.design/ocean-small.webm" fontSize={22} fontWeight={900}>
+            2026
+          </VideoText>
+        </div>
 
         {/* COUNTDOWN */}
         {!hasArrived && (
@@ -248,6 +226,16 @@ export default function NewYearCelebration() {
           {hasArrived ? "START THE YEAR" : "ENTER THE FUTURE"}
           <ChevronRight className="inline ml-2" />
         </motion.button>
+
+        {/* MISSED COUNTDOWN LINK */}
+        {hasArrived && (
+          <p className="mt-6 text-xs text-white/50">
+            You missed the countdown 😅{" "}
+            <a href="/" className="underline underline-offset-4 hover:text-white transition">
+              See the past
+            </a>
+          </p>
+        )}
       </div>
 
       {/* SIDE DECOR */}
@@ -258,7 +246,6 @@ export default function NewYearCelebration() {
         </span>
       </div>
 
-      {/* SHIMMER KEYFRAMES */}
       <style>{`
         @keyframes shimmer {
           0% { background-position: 0% 50%; }

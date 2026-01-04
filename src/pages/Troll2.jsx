@@ -4,6 +4,7 @@ import Hamster from "../assets/hamster.jpg";
 import Arthur from "../assets/arthur.png";
 import { useNavigate } from "react-router-dom";
 
+
 const COMMANDS = [
   "Initializing 2026 kernel...",
   "Mounting reality partitions...",
