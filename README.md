@@ -1,16 +1,160 @@
-# React + Vite
+# New Year 2026 -- Interactive React Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-Frontend-blue?logo=react&style=flat)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-UtilityCSS-38B2AC?logo=tailwind-css&style=flat)
+![Framer Motion](https://img.shields.io/badge/FramerMotion-Animation-black?style=flat)
+![Vite](https://img.shields.io/badge/Vite-Bundler-purple?logo=vite&style=flat)
+![Vercel](https://img.shields.io/badge/Vercel-Deployment-black?logo=vercel&style=flat)
 
-Currently, two official plugins are available:
+An interactive New Year web experience built using React, Tailwind CSS,
+and Framer Motion.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Live Demo: https://2026.praveenai.tech\
+Deployed on: Vercel
 
-## React Compiler
+------------------------------------------------------------------------
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## About
 
-## Expanding the ESLint configuration
+This project was built to:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+-   Practice React component structure
+-   Learn animation using Framer Motion
+-   Experiment with user interaction psychology
+-   Understand state-driven UI behavior
+-   Implement time-based rendering logic
+
+Instead of a static greeting page, this project changes its behavior
+based on time, scroll position, and user interaction.
+
+------------------------------------------------------------------------
+
+## Core Concepts Implemented
+
+### 1. State Management (React Hooks)
+
+The project heavily uses:
+
+-   useState
+-   useEffect
+-   useRef
+
+State is used for:
+
+-   Countdown timer (days, hours, minutes, seconds)
+-   Detecting when the New Year has arrived
+-   Scroll-based content reveal
+-   Typing animation logic (character-by-character rendering)
+-   Conditional UI rendering
+-   Route switching behavior
+
+------------------------------------------------------------------------
+
+### 2. Time-Based Logic
+
+A countdown is implemented using setInterval inside useEffect.
+
+-   Calculates the difference between current time and January 1, 2026
+-   Updates every second
+-   Switches UI automatically when time reaches zero
+-   Triggers confetti animation after midnight
+
+This demonstrates real-time UI updates based on system time.
+
+------------------------------------------------------------------------
+
+### 3. Scroll-Based Interaction
+
+In Troll pages:
+
+-   window.scrollY is tracked using useEffect
+-   UI sections appear only after specific scroll thresholds
+-   Content animates into view using Framer Motion
+
+This creates progressive reveal behavior.
+
+------------------------------------------------------------------------
+
+### 4. Typing Effect Simulation
+
+In Troll2:
+
+-   Commands are typed character-by-character
+-   Managed using multiple state variables:
+    -   currentText
+    -   history
+    -   cmdIndex
+    -   charIndex
+    -   typing
+-   Controlled with setTimeout inside useEffect
+
+This simulates a boot terminal experience.
+
+------------------------------------------------------------------------
+
+## Features
+
+-   Live countdown to 2026
+-   Automatic UI change after midnight
+-   Confetti animation when countdown ends
+-   Scroll-triggered meme reveal
+-   Terminal-style boot animation
+-   Mouse glow interaction effect
+-   HyperText animation effect
+-   Video text background effect
+-   Smooth hover and tap animations
+
+------------------------------------------------------------------------
+
+## Tech Stack
+
+Frontend: - React (Vite) - React Router DOM
+
+Styling: - Tailwind CSS - tailwindcss-animate - shadcn/ui setup - Lucide
+Icons
+
+Animation: - Framer Motion
+
+Deployment: - Vercel (Custom domain configured)
+
+------------------------------------------------------------------------
+
+## Installation
+
+1.  Clone the repository
+
+```Bash
+git clone https://github.com/your-username/new-year-2026.git
+
+cd new-year-2026
+```
+
+2.  Install dependencies
+
+```Bash
+npm install
+```
+
+3.  Run development server
+
+```Bash
+npm run dev
+```
+
+4.  Build for production
+
+```Bash
+npm run build
+```
+
+------------------------------------------------------------------------
+
+## Purpose
+
+This project helped improve understanding of:
+
+-   Real-time state updates in React
+-   Time-based conditional rendering
+-   Managing multiple states in complex UI flows
+-   Combining animation with application logic
+-   Structuring interactive frontend applications
