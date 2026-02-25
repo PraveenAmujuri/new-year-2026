@@ -9,7 +9,8 @@
 An interactive New Year web experience built using React, Tailwind CSS,
 and Framer Motion.
 
-Live Demo: https://2026.praveenai.tech\
+Live Demo: https://2026.praveenai.tech/
+
 Deployed on: Vercel
 
 ------------------------------------------------------------------------
